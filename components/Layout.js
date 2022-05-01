@@ -1,7 +1,8 @@
 import Head from "next/head";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import Link from "next/link";
 
 const user = {
   name: 'Takuya Akuzawa',
@@ -10,10 +11,10 @@ const user = {
     'https://placehold.jp/d2d1d1/ffffff/50x50.png?text=image',
 }
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Housework', href: '#', current: false },
-  { name: 'ToDo', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Dashboard', href: '/', current: true },
+  { name: 'Housework', href: '/housework-page', current: false },
+  { name: 'ToDo', href: '/todo-page', current: false },
+  // { name: 'Calendar', href: '#', current: false },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -27,7 +28,7 @@ function classNames(...classes) {
 
 export default function Layout({ children, title = "Default title" }) {
   return (
-    <div className="flex justify-center items-center flex-col min-h-screen text-white font-mono bg-gray-300">
+    <div className="flex justify-center items-center flex-col min-h-screen text-slate-700 font-mono bg-gray-300">
 
       <Head>
         <title>{title}</title>
@@ -41,24 +42,34 @@ export default function Layout({ children, title = "Default title" }) {
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+
+                      <Link href="/">
+                        <svg className="w-7 h-7 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                      </Link>
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? 'bg-gray-900 text-white'
-                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                              'px-3 py-2 rounded-md text-sm font-medium'
-                            )}
-                            aria-current={item.current ? 'page' : undefined}
-                          >
-                            {item.name}
-                          </a>
+                          <Link href={item.href}>
+                            <a
+                              key={item.name}
+                              className={classNames(
+                                item.current
+                                  ? 'bg-gray-900 text-white'
+                                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                'px-3 py-2 rounded-md text-sm font-medium'
+                              )}
+                              aria-current={item.current ? 'page' : undefined}
+                            >
+                              {item.name}
+                            </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -128,18 +139,19 @@ export default function Layout({ children, title = "Default title" }) {
               <Disclosure.Panel className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                   {navigation.map((item) => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      href={item.href}
-                      className={classNames(
-                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'block px-3 py-2 rounded-md text-base font-medium'
-                      )}
-                      aria-current={item.current ? 'page' : undefined}
-                    >
-                      {item.name}
-                    </Disclosure.Button>
+                    <Link href={item.href}>
+                      <Disclosure.Button
+                        key={item.name}
+                        as="a"
+                        className={classNames(
+                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'block px-3 py-2 rounded-md text-base font-medium'
+                        )}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
+                        {item.name}
+                      </Disclosure.Button>
+                    </Link>
                   ))}
                 </div>
                 <div className="pt-4 pb-3 border-t border-gray-700">
@@ -182,7 +194,8 @@ export default function Layout({ children, title = "Default title" }) {
         {children}
       </main>
 
-      <footer className="w-full h-6 flex justify-center items-center text-gray-500 text-sm bg-gray-800">
+      <footer
+        className="w-full h-6 flex justify-center items-center text-gray-500 text-sm bg-gray-800">
         @ T.A.
       </footer>
     </div>

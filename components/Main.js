@@ -1,3 +1,7 @@
 export default function Main() {
-  return <></>
+  return (
+    <div>
+      Main page
+    </div>
+  )
 }
