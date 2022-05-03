@@ -20,7 +20,7 @@ export default function HouseworkList({ staticHouseworks }) {
 
   return (
     <Layout title="Housework">
-      <div>Housework List</div>
+      <div className="text-2xl font-bold text-slate-700 my-6">Housework</div>
       <ul>
         {houseworks &&
           houseworks.map((housework) =>
