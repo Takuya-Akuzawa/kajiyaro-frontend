@@ -28,7 +28,7 @@ function classNames(...classes) {
 
 export default function Layout({ children, title = "Default title" }) {
   return (
-    <div className="flex justify-center items-center flex-col min-h-screen text-slate-700 font-mono bg-gray-100">
+    <div className="flex justify-center items-center flex-col min-h-screen text-slate-700 font-mono bg-gray-50">
 
       <Head>
         <title>{title}</title>
