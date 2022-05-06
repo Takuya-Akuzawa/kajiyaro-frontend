@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Housework({ housework }) {
   return (
     // card component
-    <Link href={`/houseworks/${housework.id}`}>
+    <Link href={`/houseworks/${housework.id}/`}>
       <div className="mb-3 cursor-pointer border rounded-md border-indigo-500
         bg-white flex items-center shadow-md">
 
@@ -23,6 +23,7 @@ export default function Housework({ housework }) {
           <div className="text-xs text-slate-500">標準</div>
           <div className="text-sm">{`${housework.estimated_time}分`}</div>
         </div>
+
       </div>
     </Link>
   )

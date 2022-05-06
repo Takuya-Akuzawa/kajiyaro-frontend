@@ -24,7 +24,9 @@ export default function HouseworkList({ staticHouseworks }) {
       <ul>
         {houseworks &&
           houseworks.map((housework) =>
-            <Housework key={housework.id} housework={housework} />)}
+            <Housework key={housework.id} housework={housework} />
+          )
+        }
       </ul>
     </Layout>
   )
