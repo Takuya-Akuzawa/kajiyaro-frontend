@@ -1,10 +1,6 @@
 import Link from "next/link";
-import { useContext } from "react";
-import { StateContext } from "../context/StateContext";
-
 
 export default function Housework({ housework }) {
-  const { setSelectedHousework } = useContext(StateContext)
 
   return (
     // card component
@@ -12,7 +8,6 @@ export default function Housework({ housework }) {
       <div
         className="mb-3 cursor-pointer border rounded-md border-indigo-500
         bg-white flex items-center shadow-md"
-        onClick={() => setSelectedHousework(housework)}
       >
 
         <div className="px-6 py-4 border-r rounded-md border-indigo-500 bg-purple-50">

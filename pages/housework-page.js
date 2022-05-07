@@ -3,7 +3,6 @@ import Housework from "../components/Housework";
 import { getAllHouseworkData } from "../lib/houseworks";
 import useSWR from "swr";
 import { useEffect } from "react";
-import StateContextProvider from "../context/StateContext";
 
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
@@ -20,17 +19,15 @@ export default function HouseworkList({ staticHouseworks }) {
   }, [])
 
   return (
-    <StateContextProvider>
-      <Layout title="Housework">
-        <div className="text-2xl font-bold text-slate-700 my-6">Housework</div>
-        <ul>
-          {houseworks &&
-            houseworks.map((housework) =>
-              <Housework key={housework.id} housework={housework} />)
-          }
-        </ul>
-      </Layout>
-    </StateContextProvider>
+    <Layout title="Housework">
+      <div className="text-2xl font-bold text-slate-700 my-6">Housework</div>
+      <ul>
+        {houseworks &&
+          houseworks.map((housework) =>
+            <Housework key={housework.id} housework={housework} />)
+        }
+      </ul>
+    </Layout>
   )
 }
 

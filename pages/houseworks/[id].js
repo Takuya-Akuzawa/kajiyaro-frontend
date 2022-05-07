@@ -42,16 +42,14 @@ export default function Housework({ staticHousework, id }) {
   return (
     <StateContextProvider>
       <Layout title={housework.title}>
-        <div>{housework.category["category"]}</div>
-        <div>{housework.housework_name}</div>
-        <div>詳細 {housework.description}</div>
-        <div>標準 {housework.estimated_time}分</div>
+        <h2 className="mb-3 text-center text-xl font-semibold">Housework Detail</h2>
 
-        <HouseworkForm houseworkCreated={mutate} />
+        <HouseworkForm houseworkCreated={mutate} housework={housework} />
 
         {/* Housework pageへ戻る */}
         <Link href="/housework-page">
           <div className="flex cursor-pointer mt-3">
+            {/* <<アイコン */}
             <svg className="w-6 h-6 mr-2"
               fill="none" stroke="currentColor"
               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
