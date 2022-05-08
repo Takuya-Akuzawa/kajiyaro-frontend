@@ -1,10 +1,11 @@
 import { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import { StateContext } from "../context/StateContext";
 
 export default function HouseworkForm({ houseworkCreated, housework }) {
   const { selectedHousework, setSelectedHousework } = useContext(StateContext)
-
   const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
+  const router = useRouter()
 
   useEffect(() => {
     if (housework) {
@@ -12,7 +13,7 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
     }
   }, [])
 
-  const create = async (e) => {
+  const createHousework = async (e) => {
     e.preventDefault()
     try {
       await fetch(`${apiUrl}`, {
@@ -34,7 +35,7 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
     }
   }
 
-  const update = async (e) => {
+  const updateHousework = async (e) => {
     e.preventDefault()
     try {
       await fetch(`${apiUrl}${selectedHousework.id}/`, {
@@ -57,10 +58,26 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
     }
   }
 
+  const deleteHousework = async (e) => {
+    e.preventDefault()
+    try {
+      await fetch(`${apiUrl}${selectedHousework.id}/`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `JWT ${cookie.get("access_token")}`,
+        }
+      })
+      router.push('/housework-page')
+    } catch (err) {
+      alert(err)
+    }
+  }
+
   return (
     <section className="p-6 w-4/5 max-w-4xl bg-white rounded-md shadow-md">
 
-      <form onSubmit={selectedHousework.id !== 0 ? update : create}>
+      <form onSubmit={selectedHousework.id !== 0 ? updateHousework : createHousework}>
         <div className="px-6 py-4 mb-3 w-16 text-lg border rounded-md border-indigo-500 bg-purple-50">
           {selectedHousework.category["category"]}
         </div>
@@ -107,7 +124,20 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
           }
         />
 
-        <div className="flex justify-end">
+        <div className="flex justify-around">
+          {/* delete button */}
+          <div className="flex cursor-pointer mt-3">
+            <svg
+              className="w-6 h-6 cursor-pointer"
+              onClick={deleteHousework}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </div>
+
+          {/* create / update button */}
           <button
             type="submit"
             className="text-sm px-2 py-1 mt-2
@@ -116,6 +146,7 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
             {selectedHousework.id !== 0 ? "update" : "create"}
           </button>
         </div>
+
       </form>
     </section>
   )
