@@ -7,7 +7,9 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
   const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
 
   useEffect(() => {
-    setSelectedHousework(housework)
+    if (housework) {
+      setSelectedHousework(housework)
+    }
   }, [])
 
   const create = async (e) => {
@@ -27,7 +29,6 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
           // Authorization: `JWT ${cookie.get("access_token")}`,
         },
       })
-      houseworkCreated()
     } catch (err) {
       alert(err)
     }
