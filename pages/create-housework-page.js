@@ -9,7 +9,7 @@ export default function CreateHousework() {
   return (
     <StateContextProvider>
       <Layout title="Create Housework">
-        <h2 className="mb-3 text-center text-xl font-semibold">Create Housework</h2>
+        <h2 className="my-3 text-center text-xl font-semibold">Create Housework</h2>
 
         <HouseworkForm />
         <LinkToHousework />
