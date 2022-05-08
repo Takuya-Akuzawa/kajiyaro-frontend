@@ -30,9 +30,9 @@ export default function Housework({ staticHousework, id }) {
 
   return (
     <StateContextProvider>
-      <Layout title={housework.title}>
+      <Layout title="Detail">
 
-        <h2 className="mb-3 text-center text-xl font-semibold">Housework Detail</h2>
+        <h2 className="my-3 text-center text-xl font-semibold">Housework Detail</h2>
 
         <HouseworkForm houseworkCreated={mutate} housework={housework} />
 

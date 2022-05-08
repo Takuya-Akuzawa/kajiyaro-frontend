@@ -84,7 +84,7 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
 
         <label htmlFor="housework_name">housework</label>
         <input
-          className="block text-black w-full px-4 py-2 mt-2 
+          className="block text-black w-full px-4 py-2 mb-3 
                     border border-gray-300 rounded-md
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
@@ -98,7 +98,7 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
 
         <label htmlFor="description">description</label>
         <textarea
-          className="block text-black w-full px-4 py-2 mb-2 
+          className="block text-black w-full px-4 py-2 mb-3 
                     border border-gray-300 rounded-md
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
@@ -112,7 +112,7 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
 
         <label htmlFor="estimated_time">標準時間</label>
         <input
-          className="block text-black w-full px-4 py-2 mt-2 
+          className="block text-black w-full px-4 py-2 mb-3 
                     border border-gray-300 rounded-md
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
