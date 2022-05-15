@@ -1,14 +1,13 @@
-import Head from "next/head";
+import Head from 'next/head'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import Link from "next/link";
+import Link from 'next/link'
 
 const user = {
   name: 'Takuya Akuzawa',
   email: 'takuya@example.com',
-  imageUrl:
-    'https://placehold.jp/d2d1d1/ffffff/50x50.png?text=image',
+  imageUrl: 'https://placehold.jp/d2d1d1/ffffff/50x50.png?text=image',
 }
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
@@ -24,12 +23,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+interface TITLE {
+  title: string
+}
 
-
-export default function Layout({ children, title = "Default title" }) {
+const Layout: React.FC<TITLE> = ({ children, title = 'Default title' }) => {
   return (
     <div className="flex justify-center items-center flex-col min-h-screen text-slate-700 font-mono bg-gray-50">
-
       <Head>
         <title>{title}</title>
       </Head>
@@ -42,23 +42,30 @@ export default function Layout({ children, title = "Default title" }) {
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-
                       <Link href="/">
-                        <svg className="w-7 h-7 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+                        <svg
+                          className="w-7 h-7 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                          />
                         </svg>
                       </Link>
                     </div>
                     <div className="hidden md:block">
+                      {/* Warning: Each child in a list should have a unique "key" prop. */}
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <Link href={item.href}>
+                          <Link href={item.href} key={item.name}>
                             <a
-                              key={item.name}
+                              data-testid={`nav-${item.name}`}
                               className={classNames(
                                 item.current
                                   ? 'bg-gray-900 text-white'
@@ -89,7 +96,11 @@ export default function Layout({ children, title = "Default title" }) {
                         <div>
                           <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                            <img
+                              className="h-8 w-8 rounded-full"
+                              src={user.imageUrl}
+                              alt=""
+                            />
                           </Menu.Button>
                         </div>
                         <Transition
@@ -106,6 +117,7 @@ export default function Layout({ children, title = "Default title" }) {
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
                                   <a
+                                    data-testid={`usernav-${item.name}`}
                                     href={item.href}
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',
@@ -129,7 +141,10 @@ export default function Layout({ children, title = "Default title" }) {
                       {open ? (
                         <XIcon className="block h-6 w-6" aria-hidden="true" />
                       ) : (
-                        <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                        <MenuIcon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
+                        />
                       )}
                     </Disclosure.Button>
                   </div>
@@ -139,12 +154,14 @@ export default function Layout({ children, title = "Default title" }) {
               <Disclosure.Panel className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                   {navigation.map((item) => (
-                    <Link href={item.href}>
+                    <Link href={item.href} key={item.name}>
                       <Disclosure.Button
-                        key={item.name}
                         as="a"
+                        data-testid={`nav-${item.name}`}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          item.current
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'block px-3 py-2 rounded-md text-base font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
@@ -157,11 +174,19 @@ export default function Layout({ children, title = "Default title" }) {
                 <div className="pt-4 pb-3 border-t border-gray-700">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                      <img
+                        className="h-10 w-10 rounded-full"
+                        src={user.imageUrl}
+                        alt=""
+                      />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                      <div className="text-base font-medium leading-none text-white">
+                        {user.name}
+                      </div>
+                      <div className="text-sm font-medium leading-none text-gray-400">
+                        {user.email}
+                      </div>
                     </div>
                     <button
                       type="button"
@@ -174,6 +199,7 @@ export default function Layout({ children, title = "Default title" }) {
                   <div className="mt-3 px-2 space-y-1">
                     {userNavigation.map((item) => (
                       <Disclosure.Button
+                        data-testid={`usernav-${item.name}`}
                         key={item.name}
                         as="a"
                         href={item.href}
@@ -194,10 +220,11 @@ export default function Layout({ children, title = "Default title" }) {
         {children}
       </main>
 
-      <footer
-        className="w-full h-6 flex justify-center items-center text-gray-500 text-sm bg-gray-800">
+      <footer className="w-full h-6 flex justify-center items-center text-gray-500 text-sm bg-gray-800">
         @ T.A.
       </footer>
     </div>
   )
 }
+
+export default Layout
