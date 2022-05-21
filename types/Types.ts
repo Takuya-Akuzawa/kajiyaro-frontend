@@ -6,7 +6,7 @@ export interface CATEGORY {
 export interface HOUSEWORK {
   id: number
   housework_name: string
-  category: CATEGORY[]
+  category: CATEGORY
   description: string
   estimated_time: number
   create_user: number
