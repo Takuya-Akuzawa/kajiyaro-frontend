@@ -44,8 +44,10 @@
   "jest": {
     "testPathIgnorePatterns": [
       "<rootDir>/.next/",
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/__tests__/setupEnv.ts"
     ],
+    "globalSetup": "<rootDir>/__tests__/setupEnv.ts",
     "moduleNameMapper": {
       "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
     }

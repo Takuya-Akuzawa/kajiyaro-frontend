@@ -1,4 +1,6 @@
-export async function getAllHouseworkData() {
+import fetch from 'node-fetch'
+
+export const getAllHouseworkData = async () => {
   const res = await fetch(
     new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`).toString()
   )
@@ -6,7 +8,7 @@ export async function getAllHouseworkData() {
   return houseworks
 }
 
-export async function getAllHouseworkIds() {
+export const getAllHouseworkIds = async () => {
   const res = await fetch(
     new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`).toString()
   )
@@ -21,7 +23,7 @@ export async function getAllHouseworkIds() {
   })
 }
 
-export async function getHouseworkData(id: string) {
+export const getHouseworkData = async (id: string) => {
   const res = await fetch(
     new URL(
       `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/${id}/`

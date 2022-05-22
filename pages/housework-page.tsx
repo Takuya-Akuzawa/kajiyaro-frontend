@@ -25,7 +25,9 @@ const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
 
   return (
     <Layout title="Housework">
-      <div className="text-2xl font-bold text-slate-700 my-6">Housework</div>
+      <div className="text-2xl font-bold text-slate-700 my-6">
+        Housework Page
+      </div>
 
       <ul>
         {houseworks &&
