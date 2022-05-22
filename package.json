@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.6.0",
     "@heroicons/react": "^1.0.6",
+    "axios": "^0.27.2",
     "msw": "^0.35.0",
     "next": "12.1.5",
     "next-page-tester": "^0.32.0",
