@@ -1,8 +1,23 @@
-import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
-import { StateContext } from "../context/StateContext";
+import { useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { StateContext } from '../context/StateContext'
+import { HOUSEWORK } from '../types/Types'
+import { KeyedMutator } from 'swr'
 
-export default function HouseworkForm({ houseworkCreated, housework }) {
+interface updateHousework {
+  houseworkCreated: KeyedMutator<HOUSEWORK>
+  housework: HOUSEWORK
+}
+interface createHousework {
+  houseworkCreated: null
+  housework: null
+}
+type ContextHousework = updateHousework | createHousework
+
+const HouseworkForm: React.FC<ContextHousework> = ({
+  houseworkCreated,
+  housework,
+}) => {
   const { selectedHousework, setSelectedHousework } = useContext(StateContext)
   const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
   const router = useRouter()
@@ -17,16 +32,16 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
     e.preventDefault()
     try {
       await fetch(`${apiUrl}`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
           housework_name: selectedHousework.housework_name,
-          category: selectedHousework.category["id"],
+          category: selectedHousework.category['id'],
           description: selectedHousework.description,
           estimated_time: selectedHousework.estimated_time,
           create_user: selectedHousework.create_user,
         }),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           // Authorization: `JWT ${cookie.get("access_token")}`,
         },
       })
@@ -39,16 +54,16 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
     e.preventDefault()
     try {
       await fetch(`${apiUrl}${selectedHousework.id}/`, {
-        method: "PUT",
+        method: 'PUT',
         body: JSON.stringify({
           housework_name: selectedHousework.housework_name,
-          category: selectedHousework.category["id"],
+          category: selectedHousework.category['id'],
           description: selectedHousework.description,
           estimated_time: selectedHousework.estimated_time,
           create_user: selectedHousework.create_user,
         }),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           // Authorization: `JWT ${cookie.get("access_token")}`,
         },
       })
@@ -62,11 +77,11 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
     e.preventDefault()
     try {
       await fetch(`${apiUrl}${selectedHousework.id}/`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           // Authorization: `JWT ${cookie.get("access_token")}`,
-        }
+        },
       })
       router.push('/housework-page')
     } catch (err) {
@@ -76,10 +91,13 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
 
   return (
     <section className="p-6 w-4/5 max-w-4xl bg-white rounded-md shadow-md">
-
-      <form onSubmit={selectedHousework.id !== 0 ? updateHousework : createHousework}>
+      <form
+        onSubmit={
+          selectedHousework.id !== 0 ? updateHousework : createHousework
+        }
+      >
         <div className="px-6 py-4 mb-3 w-16 text-lg border rounded-md border-indigo-500 bg-purple-50">
-          {selectedHousework.category["category"]}
+          {selectedHousework.category['category']}
         </div>
 
         <label htmlFor="housework_name">housework</label>
@@ -92,7 +110,10 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
           id="housework_name"
           value={selectedHousework.housework_name}
           onChange={(e) =>
-            setSelectedHousework({ ...selectedHousework, housework_name: e.target.value })
+            setSelectedHousework({
+              ...selectedHousework,
+              housework_name: e.target.value,
+            })
           }
         />
 
@@ -102,11 +123,13 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
                     border border-gray-300 rounded-md
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
-          type="text"
           id="description"
           value={selectedHousework.description}
           onChange={(e) =>
-            setSelectedHousework({ ...selectedHousework, description: e.target.value })
+            setSelectedHousework({
+              ...selectedHousework,
+              description: e.target.value,
+            })
           }
         />
 
@@ -120,7 +143,10 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
           id="estimated_time"
           value={selectedHousework.estimated_time}
           onChange={(e) =>
-            setSelectedHousework({ ...selectedHousework, estimated_time: e.target.value })
+            setSelectedHousework({
+              ...selectedHousework,
+              estimated_time: Number(e.target.value),
+            })
           }
         />
 
@@ -132,8 +158,15 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
               onClick={deleteHousework}
               fill="none"
               stroke="currentColor"
-              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
             </svg>
           </div>
 
@@ -143,11 +176,11 @@ export default function HouseworkForm({ houseworkCreated, housework }) {
             className="text-sm px-2 py-1 mt-2
                     bg-blue-300 hover:bg-blue-400 rounded uppercase"
           >
-            {selectedHousework.id !== 0 ? "update" : "create"}
+            {selectedHousework.id !== 0 ? 'update' : 'create'}
           </button>
         </div>
-
       </form>
     </section>
   )
 }
+export default HouseworkForm
