@@ -1,13 +1,12 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen, cleanup } from '@testing-library/react'
-import { getPage } from 'next-page-tester'
-import { initTestHelpers } from 'next-page-tester'
+import { SWRConfig } from 'swr'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
+import { HOUSEWORK } from '../types/Types'
+import HouseworkList from '../pages/housework-page'
 
-initTestHelpers()
-
-const handlers = [
+const server = setupServer(
   rest.get(
     `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`,
     (req, res, ctx) => {
@@ -39,10 +38,8 @@ const handlers = [
         ])
       )
     }
-  ),
-]
-
-const server = setupServer(...handlers)
+  )
+)
 
 beforeAll(() => {
   server.listen()
@@ -55,14 +52,41 @@ afterAll(() => {
   server.close()
 })
 
-describe(`Housework-page test`, () => {
-  it('Should render the list of housework prefetched by getStaticProps', async () => {
-    const { page } = await getPage({
-      route: '/housework-page',
-    })
-    render(page)
-    expect(await screen.findByText('Housework Page')).toBeInTheDocument()
-    expect(screen.getByText('dummy data 1')).toBeInTheDocument()
+describe(`Housework-page useSWR test`, () => {
+  let staticProps: HOUSEWORK[]
+  staticProps = [
+    {
+      id: 3,
+      housework_name: 'static data 3',
+      category: {
+        id: 1,
+        category: '衣',
+      },
+      description: 'mock api request data 3',
+      estimated_time: 15,
+      create_user: 1,
+    },
+    {
+      id: 4,
+      housework_name: 'static data 4',
+      category: {
+        id: 3,
+        category: '住',
+      },
+      description: 'mock api request data 4',
+      estimated_time: 40,
+      create_user: 1,
+    },
+  ]
+  it('Should render CSF data after pre-rendered data', async () => {
+    render(
+      <SWRConfig value={{ dedupingInterval: 0 }}>
+        <HouseworkList staticHouseworks={staticProps} />
+      </SWRConfig>
+    )
+    expect(await screen.findByText('static data 3')).toBeInTheDocument()
+    expect(screen.getByText('static data 4')).toBeInTheDocument()
+    expect(await screen.findByText('dummy data 1')).toBeInTheDocument()
     expect(screen.getByText('dummy data 2')).toBeInTheDocument()
   })
 })

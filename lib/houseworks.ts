@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import { HOUSEWORK } from '../types/Types'
 
 export const getAllHouseworkData = async () => {
   const res = await fetch(
@@ -23,7 +24,7 @@ export const getAllHouseworkIds = async () => {
   })
 }
 
-export const getHouseworkData = async (id: string) => {
+export const getHouseworkData = async (id: string): Promise<HOUSEWORK> => {
   const res = await fetch(
     new URL(
       `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/${id}/`

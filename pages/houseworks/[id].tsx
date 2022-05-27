@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import axios from 'axios'
 import { getAllHouseworkIds, getHouseworkData } from '../../lib/houseworks'
 import Layout from '../../components/Layout'
 import LinkToHousework from '../../components/LinkToHousework'

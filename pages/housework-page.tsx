@@ -4,24 +4,39 @@ import { getAllHouseworkData } from '../lib/houseworks'
 import useSWR from 'swr'
 import { useEffect } from 'react'
 import Link from 'next/link'
-import { NextPage } from 'next'
+import { NextPage, GetStaticProps } from 'next'
 import { HOUSEWORK } from '../types/Types'
+import axios from 'axios'
 
-const fetcher = (url) => fetch(url).then((res) => res.json())
-const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
+// const fetcher = (url) => fetch(url).then((res) => res.json())
+// const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
+
+const axiosFetcher = async () => {
+  const result = await axios.get<HOUSEWORK[]>(
+    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
+  )
+  return result.data
+}
 
 interface STATICPROPS {
   staticHouseworks: HOUSEWORK[]
 }
 
 const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
-  const { data: houseworks, mutate } = useSWR(apiUrl, fetcher, {
+  const {
+    data: houseworks,
+    error,
+    mutate,
+  } = useSWR('houseworkFetch', axiosFetcher, {
     fallbackData: staticHouseworks,
+    revalidateOnMount: true,
   })
 
   useEffect(() => {
     mutate()
   }, [])
+
+  if (error) return <span>Error!</span>
 
   return (
     <Layout title="Housework">
@@ -61,11 +76,10 @@ const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
 }
 export default HouseworkList
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const staticHouseworks = await getAllHouseworkData()
 
   return {
     props: { staticHouseworks },
-    revalidate: 3,
   }
 }

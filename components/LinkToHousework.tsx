@@ -3,7 +3,7 @@ import Link from 'next/link'
 const LinkToHousework: React.FC = () => {
   return (
     <Link href="/housework-page">
-      <div className="flex cursor-pointer mt-3">
+      <div className="flex cursor-pointer mt-3" data-testid="back-housework">
         {/* << icon */}
         <svg
           className="w-6 h-6 mr-2"
