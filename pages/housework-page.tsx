@@ -23,11 +23,7 @@ interface STATICPROPS {
 }
 
 const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
-  const {
-    data: houseworks,
-    error,
-    mutate,
-  } = useSWR('houseworkFetch', axiosFetcher, {
+  const { data: houseworks, mutate } = useSWR('houseworkFetch', axiosFetcher, {
     fallbackData: staticHouseworks,
     revalidateOnMount: true,
   })
@@ -35,8 +31,6 @@ const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
   useEffect(() => {
     mutate()
   }, [])
-
-  if (error) return <span>Error!</span>
 
   return (
     <Layout title="Housework">
