@@ -8,16 +8,17 @@ import HouseworkForm from '../../components/HouseworkForm'
 import StateContextProvider from '../../context/StateContext'
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next'
 import { HOUSEWORK } from '../../types/Types'
+import Cookie from 'universal-cookie'
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+const cookie = new Cookie()
+
+const fetcher = async (url: string) =>
+  await fetch(url, {
+    headers: {
+      Authorization: `JWT ${cookie.get('access_token')}`,
+    },
+  }).then((res) => res.json())
 const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
-
-// const axiosFetcher = async (id: string) => {
-//   const result = await axios.get<HOUSEWORK>(
-//     `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/${id}/`
-//   )
-//   return result.data
-// }
 
 interface STATICPROPS {
   id: string

@@ -3,6 +3,9 @@ import { useRouter } from 'next/router'
 import { StateContext } from '../context/StateContext'
 import { HOUSEWORK } from '../types/Types'
 import { KeyedMutator } from 'swr'
+import Cookie from 'universal-cookie'
+
+const cookie = new Cookie()
 
 interface updateHousework {
   houseworkCreated: KeyedMutator<HOUSEWORK>
@@ -42,9 +45,10 @@ const HouseworkForm: React.FC<ContextHousework> = ({
         }),
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `JWT ${cookie.get("access_token")}`,
+          Authorization: `JWT ${cookie.get('access_token')}`,
         },
       })
+      router.push('/housework-page')
     } catch (err) {
       alert(err)
     }
@@ -64,7 +68,7 @@ const HouseworkForm: React.FC<ContextHousework> = ({
         }),
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `JWT ${cookie.get("access_token")}`,
+          Authorization: `JWT ${cookie.get('access_token')}`,
         },
       })
       houseworkCreated()
@@ -80,7 +84,7 @@ const HouseworkForm: React.FC<ContextHousework> = ({
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `JWT ${cookie.get("access_token")}`,
+          Authorization: `JWT ${cookie.get('access_token')}`,
         },
       })
       router.push('/housework-page')
@@ -139,9 +143,10 @@ const HouseworkForm: React.FC<ContextHousework> = ({
                     border border-gray-300 rounded-md
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
-          type="text"
+          type="number"
           id="estimated_time"
           value={selectedHousework.estimated_time}
+          min="0"
           onChange={(e) =>
             setSelectedHousework({
               ...selectedHousework,

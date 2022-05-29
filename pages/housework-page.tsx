@@ -7,13 +7,16 @@ import Link from 'next/link'
 import { NextPage, GetStaticProps } from 'next'
 import { HOUSEWORK } from '../types/Types'
 import axios from 'axios'
+import Cookie from 'universal-cookie'
 
-// const fetcher = (url) => fetch(url).then((res) => res.json())
-// const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
+const cookie = new Cookie()
 
 const axiosFetcher = async () => {
   const result = await axios.get<HOUSEWORK[]>(
-    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
+    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`,
+    {
+      headers: { Authorization: `JWT ${cookie.get('access_token')}` },
+    }
   )
   return result.data
 }
