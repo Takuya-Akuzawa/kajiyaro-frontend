@@ -173,6 +173,7 @@ const Layout: React.FC<TITLE> = ({ children, title = 'Default title' }) => {
                       </Disclosure.Button>
                     </Link>
                   ))}
+                  <Logout />
                 </div>
                 <div className="pt-4 pb-3 border-t border-gray-700">
                   <div className="flex items-center px-5">
