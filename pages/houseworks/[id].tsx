@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { getAllHouseworkIds, getHouseworkData } from '../../lib/houseworks'
@@ -27,12 +27,19 @@ interface STATICPROPS {
 
 const HouseworkDetail: NextPage<STATICPROPS> = ({ id, staticHousework }) => {
   const router = useRouter()
+  const [hasToken, setHasToken] = useState(false)
+
   const { data: housework, mutate } = useSWR(`${apiUrl}${id}/`, fetcher, {
     fallbackData: staticHousework,
   })
 
   useEffect(() => {
     mutate()
+    if (cookie.get('access_token')) {
+      setHasToken(true)
+    } else {
+      router.push('/auth-page')
+    }
   }, [])
 
   if (router.isFallback || !housework) {
