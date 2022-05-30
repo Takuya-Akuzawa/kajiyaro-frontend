@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
+import Logout from './Logout'
 
 const user = {
   name: 'Takuya Akuzawa',
@@ -79,6 +80,7 @@ const Layout: React.FC<TITLE> = ({ children, title = 'Default title' }) => {
                             </a>
                           </Link>
                         ))}
+                        <Logout />
                       </div>
                     </div>
                   </div>
