@@ -2,12 +2,13 @@ import Layout from '../components/Layout'
 import Housework from '../components/Housework'
 import { getAllHouseworkData } from '../lib/houseworks'
 import useSWR from 'swr'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { NextPage, GetStaticProps } from 'next'
 import { HOUSEWORK } from '../types/Types'
 import axios from 'axios'
 import Cookie from 'universal-cookie'
+import { useRouter } from 'next/router'
 
 const cookie = new Cookie()
 
@@ -26,6 +27,9 @@ interface STATICPROPS {
 }
 
 const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
+  const router = useRouter()
+  const [hasToken, setHasToken] = useState(false)
+
   const { data: houseworks, mutate } = useSWR('houseworkFetch', axiosFetcher, {
     fallbackData: staticHouseworks,
     revalidateOnMount: true,
@@ -33,6 +37,11 @@ const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
 
   useEffect(() => {
     mutate()
+    if (cookie.get('access_token')) {
+      setHasToken(true)
+    } else {
+      router.push('/auth-page')
+    }
   }, [])
 
   return (

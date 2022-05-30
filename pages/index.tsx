@@ -7,7 +7,7 @@ import { useState } from 'react'
 const cookie = new Cookie()
 
 const Home: NextPage = () => {
-  const [hadToken, setHasToken] = useState(false)
+  const [hasToken, setHasToken] = useState(false)
   return (
     <Layout title="Dashboard">
       <Dashboard />
