@@ -40,6 +40,38 @@ const handlers = [
       )
     }
   ),
+  rest.get(
+    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-housework/`,
+    (req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json([
+          {
+            id: 1,
+            housework_name: 'dummy data 1',
+            category: {
+              id: 1,
+              category: '衣',
+            },
+            description: 'mock api request data 1',
+            estimated_time: 5,
+            create_user: 1,
+          },
+          {
+            id: 2,
+            housework_name: 'dummy data 2',
+            category: {
+              id: 2,
+              category: '食',
+            },
+            description: 'mock api request data 2',
+            estimated_time: 10,
+            create_user: 1,
+          },
+        ])
+      )
+    }
+  ),
 ]
 
 const server = setupServer(...handlers)

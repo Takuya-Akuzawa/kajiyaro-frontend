@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { getAllHouseworkIds, getHouseworkData } from '../../lib/houseworks'
@@ -8,16 +8,17 @@ import HouseworkForm from '../../components/HouseworkForm'
 import StateContextProvider from '../../context/StateContext'
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next'
 import { HOUSEWORK } from '../../types/Types'
+import Cookie from 'universal-cookie'
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+const cookie = new Cookie()
+
+const fetcher = async (url: string) =>
+  await fetch(url, {
+    headers: {
+      Authorization: `JWT ${cookie.get('access_token')}`,
+    },
+  }).then((res) => res.json())
 const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
-
-// const axiosFetcher = async (id: string) => {
-//   const result = await axios.get<HOUSEWORK>(
-//     `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/${id}/`
-//   )
-//   return result.data
-// }
 
 interface STATICPROPS {
   id: string
@@ -26,12 +27,19 @@ interface STATICPROPS {
 
 const HouseworkDetail: NextPage<STATICPROPS> = ({ id, staticHousework }) => {
   const router = useRouter()
+  const [hasToken, setHasToken] = useState(false)
+
   const { data: housework, mutate } = useSWR(`${apiUrl}${id}/`, fetcher, {
     fallbackData: staticHousework,
   })
 
   useEffect(() => {
     mutate()
+    if (cookie.get('access_token')) {
+      setHasToken(true)
+    } else {
+      // router.push('/auth-page')
+    }
   }, [])
 
   if (router.isFallback || !housework) {

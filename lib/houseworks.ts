@@ -3,7 +3,9 @@ import { HOUSEWORK } from '../types/Types'
 
 export const getAllHouseworkData = async () => {
   const res = await fetch(
-    new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`).toString()
+    new URL(
+      `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-housework/`
+    ).toString()
   )
   const houseworks = await res.json()
   return houseworks
@@ -11,7 +13,9 @@ export const getAllHouseworkData = async () => {
 
 export const getAllHouseworkIds = async () => {
   const res = await fetch(
-    new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`).toString()
+    new URL(
+      `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-housework/`
+    ).toString()
   )
   const houseworks = await res.json()
 
@@ -27,7 +31,7 @@ export const getAllHouseworkIds = async () => {
 export const getHouseworkData = async (id: string): Promise<HOUSEWORK> => {
   const res = await fetch(
     new URL(
-      `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/${id}/`
+      `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-housework/${id}/`
     ).toString()
   )
   const housework = await res.json()
