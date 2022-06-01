@@ -29,7 +29,7 @@ const Auth: React.FC = () => {
         router.push('/')
       }
     } catch (error) {
-      setError('Login failed')
+      setError('ログインに失敗しました')
     }
   }
   return (
@@ -42,6 +42,7 @@ const Auth: React.FC = () => {
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
           type="text"
+          required
           placeholder="Username"
           value={username}
           onChange={(e) => {
@@ -55,6 +56,7 @@ const Auth: React.FC = () => {
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
           type="password"
+          required
           placeholder="Password"
           value={password}
           onChange={(e) => {
@@ -64,13 +66,15 @@ const Auth: React.FC = () => {
         <div className="flex items-center justify-center flex-col">
           <button
             type="submit"
+            disabled={!username || !password}
             className="text-sm px-2 py-1 mt-2 disabled:opacity-40
                       bg-blue-300 hover:bg-blue-400 rounded uppercase"
           >
-            Login
+            ログイン
           </button>
         </div>
       </form>
+      {error && <p className="mt-5 text-red-400 text-center">{error}</p>}
     </section>
   )
 }

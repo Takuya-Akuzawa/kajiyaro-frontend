@@ -40,7 +40,7 @@ const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
     if (cookie.get('access_token')) {
       setHasToken(true)
     } else {
-      router.push('/auth-page')
+      // router.push('/auth-page')
     }
   }, [])
 

@@ -16,7 +16,7 @@ export default function CreateHousework() {
     if (cookie.get('access_token')) {
       setHasToken(true)
     } else {
-      router.push('/auth-page')
+      // router.push('/auth-page')
     }
   }, [])
 

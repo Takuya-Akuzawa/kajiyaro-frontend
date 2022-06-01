@@ -14,7 +14,7 @@ const TodoList: NextPage = () => {
     if (cookie.get('access_token')) {
       setHasToken(true)
     } else {
-      router.push('/auth-page')
+      // router.push('/auth-page')
     }
   }, [])
   return (
