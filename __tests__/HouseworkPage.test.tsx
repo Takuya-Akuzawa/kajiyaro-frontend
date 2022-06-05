@@ -4,6 +4,7 @@ import { getPage } from 'next-page-tester'
 import { initTestHelpers } from 'next-page-tester'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
+import { isTypedArray } from 'util/types'
 
 initTestHelpers()
 
@@ -82,6 +83,8 @@ beforeAll(() => {
 afterEach(() => {
   server.resetHandlers()
   cleanup()
+  document.cookie =
+    'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 })
 afterAll(() => {
   server.close()
@@ -96,5 +99,20 @@ describe(`Housework-page test`, () => {
     expect(await screen.findByText('Housework Page')).toBeInTheDocument()
     expect(screen.getByText('dummy data 1')).toBeInTheDocument()
     expect(screen.getByText('dummy data 2')).toBeInTheDocument()
+  })
+
+  it('Should display ”新規作成” link in the housework-page when logged in', async () => {
+    document.cookie = 'access_token=123xyz'
+    const { page } = await getPage({ route: '/housework-page' })
+    render(page)
+    expect(await screen.findByText('Housework Page')).toBeInTheDocument()
+    expect(screen.getByText('新規Housework')).toBeInTheDocument()
+  })
+
+  it('Should not display ”新規作成” link in the housework-page when logged out', async () => {
+    const { page } = await getPage({ route: '/housework-page' })
+    render(page)
+    expect(await screen.findByText('Housework Page')).toBeInTheDocument()
+    expect(screen.queryByText('新規Housework')).toBeNull()
   })
 })
