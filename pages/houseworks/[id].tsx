@@ -18,7 +18,7 @@ const fetcher = async (url: string) =>
       Authorization: `JWT ${cookie.get('access_token')}`,
     },
   }).then((res) => res.json())
-const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`
+const apiUrl = `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-housework/`
 
 interface STATICPROPS {
   id: string

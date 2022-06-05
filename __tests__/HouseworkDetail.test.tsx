@@ -10,76 +10,6 @@ initTestHelpers()
 
 const handlers = [
   rest.get(
-    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/`,
-    (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {
-            id: 1,
-            housework_name: 'dummy data 1',
-            category: {
-              id: 1,
-              category: '衣',
-            },
-            description: 'mock api request data 1',
-            estimated_time: 5,
-            create_user: 1,
-          },
-          {
-            id: 2,
-            housework_name: 'dummy data 2',
-            category: {
-              id: 2,
-              category: '食',
-            },
-            description: 'mock api request data 2',
-            estimated_time: 10,
-            create_user: 1,
-          },
-        ])
-      )
-    }
-  ),
-  rest.get(
-    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/1/`,
-    (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json({
-          id: 1,
-          housework_name: 'dummy data 1',
-          category: {
-            id: 1,
-            category: '衣',
-          },
-          description: 'mock api request data 1',
-          estimated_time: 5,
-          create_user: 1,
-        })
-      )
-    }
-  ),
-  rest.get(
-    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/houseworks/2/`,
-    (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json({
-          id: 2,
-          housework_name: 'dummy data 2',
-          category: {
-            id: 2,
-            category: '食',
-          },
-          description: 'mock api request data 2',
-          estimated_time: 10,
-          create_user: 1,
-        })
-      )
-    }
-  ),
-  rest.get(
     `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-housework/`,
     (req, res, ctx) => {
       return res(
@@ -197,5 +127,21 @@ describe(`housework/[id].js test`, () => {
     await screen.findByText('Housework')
     userEvent.click(screen.getByTestId('back-housework'))
     expect(await screen.findByText('Housework Page')).toBeInTheDocument()
+  })
+
+  it('Should render delete/update button when logged in ', async () => {
+    document.cookie = 'access_token=123xyz'
+    const { page } = await getPage({ route: '/houseworks/1' })
+    render(page)
+    expect(await screen.findByText('Housework Detail')).toBeInTheDocument()
+    expect(screen.getByText('update')).toBeInTheDocument()
+    expect(screen.getByTestId('delete-button')).toBeInTheDocument()
+  })
+  it('Should not render delete/update button when logged out ', async () => {
+    const { page } = await getPage({ route: '/houseworks/1' })
+    render(page)
+    expect(await screen.findByText('Housework Detail')).toBeInTheDocument()
+    expect(screen.queryByText('update')).toBeNull()
+    expect(screen.queryByTestId('delete-button')).toBeNull()
   })
 })
