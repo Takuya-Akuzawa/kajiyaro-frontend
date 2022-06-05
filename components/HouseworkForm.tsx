@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { StateContext } from '../context/StateContext'
 import { HOUSEWORK } from '../types/Types'
 import { KeyedMutator } from 'swr'
+import fetch from 'node-fetch'
 import Cookie from 'universal-cookie'
 
 const cookie = new Cookie()

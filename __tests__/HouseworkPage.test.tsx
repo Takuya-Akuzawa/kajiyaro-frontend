@@ -4,7 +4,6 @@ import { getPage } from 'next-page-tester'
 import { initTestHelpers } from 'next-page-tester'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { isTypedArray } from 'util/types'
 
 initTestHelpers()
 
