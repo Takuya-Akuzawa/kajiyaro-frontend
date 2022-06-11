@@ -37,7 +37,7 @@ const Auth: React.FC = () => {
       <h2 className="my-3 text-center text-xl font-semibold">Login Page</h2>
       <form onSubmit={login}>
         <input
-          className="block text-black w-full px-4 py-2 mb-3 
+          className="block text-black px-4 py-2 mb-3 w-3/5 m-auto
                     border border-gray-300 rounded-md
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
@@ -51,7 +51,7 @@ const Auth: React.FC = () => {
         />
 
         <input
-          className="block text-black w-full px-4 py-2 mb-3 
+          className="block text-black w-3/5 px-4 py-2 mb-3 m-auto
                     border border-gray-300 rounded-md
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"

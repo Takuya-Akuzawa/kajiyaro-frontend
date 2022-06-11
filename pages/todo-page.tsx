@@ -41,9 +41,12 @@ const TodoList: NextPage<STATICPROPS> = ({ staticTasks }) => {
   }, [])
   return (
     <Layout title="ToDo">
-      <div>ToDo Page</div>
-
-      <ul>{tasks && tasks.map((task) => <Task key={task.id} {...task} />)}</ul>
+      <div className="text-2xl font-bold text-slate-700 my-6">ToDo Page</div>
+      <section className="p-6 w-4/5 max-w-4xl bg-white rounded-md shadow-md">
+        <ul>
+          {tasks && tasks.map((task) => <Task key={task.id} {...task} />)}
+        </ul>
+      </section>
     </Layout>
   )
 }
