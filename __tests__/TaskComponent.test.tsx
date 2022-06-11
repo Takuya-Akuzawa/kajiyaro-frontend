@@ -13,6 +13,7 @@ describe('Task component with given prop', () => {
         id: 1,
         category: '衣',
       },
+      status: '未着手',
       assigned_user: 'Dummy Username',
       scheduled_date: '2022/04/26',
       result_date: '2022/04/27',
