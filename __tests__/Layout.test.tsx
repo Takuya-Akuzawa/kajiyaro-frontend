@@ -13,9 +13,8 @@ describe('Navigation by Link', () => {
     })
     render(page)
 
-    // ToDo: テスト実行時のhandlers共通化
-    // userEvent.click(screen.getByTestId('nav-ToDo'))
-    // expect(await screen.findByText('ToDo Page')).toBeInTheDocument()
+    userEvent.click(screen.getByTestId('nav-ToDo'))
+    expect(await screen.findByText('ToDo List')).toBeInTheDocument()
 
     userEvent.click(screen.getByTestId('nav-Dashboard'))
     expect(await screen.findByText('Housework')).toBeInTheDocument()

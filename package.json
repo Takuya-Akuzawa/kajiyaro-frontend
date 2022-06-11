@@ -52,8 +52,5 @@
     "moduleNameMapper": {
       "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
     }
-  },
-  "msw": {
-    "workerDirectory": "public"
   }
 }
