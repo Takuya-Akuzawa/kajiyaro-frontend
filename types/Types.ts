@@ -1,6 +1,6 @@
 export interface CATEGORY {
   id: number
-  category: string
+  category_name: string
 }
 
 export interface USER {

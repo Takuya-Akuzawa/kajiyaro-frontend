@@ -22,7 +22,7 @@ const handlers = [
             task_name: 'dummy task 1',
             category: {
               id: 1,
-              category: '衣',
+              category_name: '衣',
             },
             status: '未着手',
             assigned_user: {
@@ -38,7 +38,7 @@ const handlers = [
             task_name: 'dummy task 2',
             category: {
               id: 2,
-              category: '食',
+              category_name: '食',
             },
             status: '完了',
             assigned_user: {

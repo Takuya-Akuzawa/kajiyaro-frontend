@@ -11,7 +11,7 @@ export const handlers = [
             task_name: '洗濯',
             category: {
               id: 1,
-              category: '衣',
+              category_name: '衣',
             },
             status: '未着手',
             assigned_user: {

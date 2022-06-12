@@ -11,7 +11,7 @@ describe('Task component with given prop', () => {
       task_name: 'dummy task',
       category: {
         id: 1,
-        category: '衣',
+        category_name: '衣',
       },
       status: '未着手',
       assigned_user: {

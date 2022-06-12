@@ -11,7 +11,7 @@ describe('Housework component with given props', () => {
       housework_name: 'dummy data 1',
       category: {
         id: 1,
-        category: '衣',
+        category_name: '衣',
       },
       description: 'mock api request data 1',
       estimated_time: 5,

@@ -19,7 +19,7 @@ const handlers = [
             housework_name: 'dummy data 1',
             category: {
               id: 1,
-              category: '衣',
+              category_name: '衣',
             },
             description: 'mock api request data 1',
             estimated_time: 5,
@@ -33,7 +33,7 @@ const handlers = [
             housework_name: 'dummy data 2',
             category: {
               id: 2,
-              category: '食',
+              category_name: '食',
             },
             description: 'mock api request data 2',
             estimated_time: 10,
@@ -57,7 +57,7 @@ const handlers = [
             housework_name: 'dummy data 1',
             category: {
               id: 1,
-              category: '衣',
+              category_name: '衣',
             },
             description: 'mock api request data 1',
             estimated_time: 5,
@@ -71,7 +71,7 @@ const handlers = [
             housework_name: 'dummy data 2',
             category: {
               id: 2,
-              category: '食',
+              category_name: '食',
             },
             description: 'mock api request data 2',
             estimated_time: 10,
