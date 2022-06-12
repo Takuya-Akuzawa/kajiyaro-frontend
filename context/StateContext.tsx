@@ -14,7 +14,7 @@ const StateContextProvider: React.FC = ({ children }) => {
     housework_name: '',
     category: {
       id: 1,
-      category: '衣',
+      category_name: '衣',
     },
     description: '',
     estimated_time: 0,
