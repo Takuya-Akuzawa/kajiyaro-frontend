@@ -24,7 +24,7 @@ describe('Housework component with given props', () => {
   it('Should render correctly with given props value', () => {
     render(<Housework {...dummyProps} />)
     expect(
-      screen.getByText(dummyProps.category['category'])
+      screen.getByText(dummyProps.category['category_name'])
     ).toBeInTheDocument()
     expect(screen.getByText(dummyProps.housework_name)).toBeInTheDocument()
     expect(
