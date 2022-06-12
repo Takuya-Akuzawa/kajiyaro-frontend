@@ -11,10 +11,13 @@ export const handlers = [
             task_name: '洗濯',
             category: {
               id: 1,
-              category: '衣',
+              category_name: '衣',
             },
             status: '未着手',
-            assigned_user: 'Narumi',
+            assigned_user: {
+              'id': 1,
+              'username': 'Narumi'
+            },
             scheduled_date: '2022/06/10',
             result_date: '2022/06/10',
             result_time: 30,
@@ -27,7 +30,10 @@ export const handlers = [
               category: '食',
             },
             status: '完了',
-            assigned_user: 'Takuya',
+            assigned_user: {
+              'id': 1,
+              'username': 'Takuya'
+            },
             scheduled_date: '2022/06/08',
             result_date: '2022/06/08',
             result_time: 60,

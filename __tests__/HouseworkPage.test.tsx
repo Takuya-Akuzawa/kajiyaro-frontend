@@ -19,22 +19,28 @@ const handlers = [
             housework_name: 'dummy data 1',
             category: {
               id: 1,
-              category: '衣',
+              category_name: '衣',
             },
             description: 'mock api request data 1',
             estimated_time: 5,
-            create_user: 1,
+            create_user: {
+              id: 1,
+              username: 'Dummy User 1',
+            },
           },
           {
             id: 2,
             housework_name: 'dummy data 2',
             category: {
               id: 2,
-              category: '食',
+              category_name: '食',
             },
             description: 'mock api request data 2',
             estimated_time: 10,
-            create_user: 1,
+            create_user: {
+              id: 2,
+              username: 'Dummy User 2',
+            },
           },
         ])
       )
@@ -51,22 +57,28 @@ const handlers = [
             housework_name: 'dummy data 1',
             category: {
               id: 1,
-              category: '衣',
+              category_name: '衣',
             },
             description: 'mock api request data 1',
             estimated_time: 5,
-            create_user: 1,
+            create_user: {
+              id: 1,
+              username: 'Dummy User 1',
+            },
           },
           {
             id: 2,
             housework_name: 'dummy data 2',
             category: {
               id: 2,
-              category: '食',
+              category_name: '食',
             },
             description: 'mock api request data 2',
             estimated_time: 10,
-            create_user: 1,
+            create_user: {
+              id: 1,
+              username: 'Dummy User 1',
+            },
           },
         ])
       )

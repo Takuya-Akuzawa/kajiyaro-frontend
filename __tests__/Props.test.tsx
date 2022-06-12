@@ -11,17 +11,20 @@ describe('Housework component with given props', () => {
       housework_name: 'dummy data 1',
       category: {
         id: 1,
-        category: '衣',
+        category_name: '衣',
       },
       description: 'mock api request data 1',
       estimated_time: 5,
-      create_user: 1,
+      create_user: {
+        id: 1,
+        username: 'Dummy User 1',
+      },
     }
   })
   it('Should render correctly with given props value', () => {
     render(<Housework {...dummyProps} />)
     expect(
-      screen.getByText(dummyProps.category['category'])
+      screen.getByText(dummyProps.category['category_name'])
     ).toBeInTheDocument()
     expect(screen.getByText(dummyProps.housework_name)).toBeInTheDocument()
     expect(

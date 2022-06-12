@@ -1,6 +1,11 @@
 export interface CATEGORY {
   id: number
-  category: string
+  category_name: string
+}
+
+export interface USER {
+  id: number
+  username: string
 }
 
 export interface HOUSEWORK {
@@ -9,7 +14,7 @@ export interface HOUSEWORK {
   category: CATEGORY
   description: string
   estimated_time: number
-  create_user: number
+  create_user: USER
 }
 
 export interface TASK {
@@ -17,7 +22,7 @@ export interface TASK {
   task_name: string
   category: CATEGORY
   status: string
-  assigned_user: string
+  assigned_user: USER
   scheduled_date: string
   result_date: string
   result_time: number

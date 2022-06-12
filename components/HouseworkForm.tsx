@@ -46,7 +46,7 @@ const HouseworkForm: React.FC<ContextHousework> = ({
           category: selectedHousework.category['id'],
           description: selectedHousework.description,
           estimated_time: selectedHousework.estimated_time,
-          create_user: selectedHousework.create_user,
+          create_user: selectedHousework.create_user['id'],
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const HouseworkForm: React.FC<ContextHousework> = ({
           category: selectedHousework.category['id'],
           description: selectedHousework.description,
           estimated_time: selectedHousework.estimated_time,
-          create_user: selectedHousework.create_user,
+          create_user: selectedHousework.create_user['id'],
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ const HouseworkForm: React.FC<ContextHousework> = ({
         }
       >
         <div className="px-6 py-4 mb-3 w-16 text-lg border rounded-md border-indigo-500 bg-purple-50">
-          {selectedHousework.category['category']}
+          {selectedHousework.category['category_name']}
         </div>
 
         <label htmlFor="housework_name">housework</label>

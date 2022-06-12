@@ -15,7 +15,7 @@ const Housework: React.FC<HOUSEWORK> = ({
         bg-white flex items-center shadow-md"
       >
         <div className="px-6 py-4 border-r rounded-md border-indigo-500 bg-purple-50">
-          <span className="text-lg">{category['category']}</span>
+          <span className="text-lg">{category['category_name']}</span>
         </div>
 
         <div className="w-60 py-2 text-center">

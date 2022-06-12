@@ -14,11 +14,14 @@ const StateContextProvider: React.FC = ({ children }) => {
     housework_name: '',
     category: {
       id: 1,
-      category: '衣',
+      category_name: '衣',
     },
     description: '',
     estimated_time: 0,
-    create_user: 1,
+    create_user: {
+      id: 1,
+      username: 'Dummy User 1',
+    },
   })
 
   return (
