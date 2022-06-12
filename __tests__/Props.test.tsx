@@ -15,7 +15,10 @@ describe('Housework component with given props', () => {
       },
       description: 'mock api request data 1',
       estimated_time: 5,
-      create_user: 1,
+      create_user: {
+        id: 1,
+        username: 'Dummy User 1',
+      },
     }
   })
   it('Should render correctly with given props value', () => {

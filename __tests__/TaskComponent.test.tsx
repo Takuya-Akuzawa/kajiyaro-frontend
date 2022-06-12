@@ -14,7 +14,10 @@ describe('Task component with given prop', () => {
         category: '衣',
       },
       status: '未着手',
-      assigned_user: 'Dummy Username',
+      assigned_user: {
+        id: 1,
+        username: 'Dummy Username',
+      },
       scheduled_date: '2022/04/26',
       result_date: '2022/04/27',
       result_time: 30,
@@ -25,6 +28,8 @@ describe('Task component with given prop', () => {
     render(<Task {...dummyProps} />)
     expect(screen.getByText(dummyProps.task_name)).toBeInTheDocument()
     expect(screen.getByText(dummyProps.scheduled_date)).toBeInTheDocument()
-    expect(screen.getByText(dummyProps.assigned_user)).toBeInTheDocument()
+    expect(
+      screen.getByText(dummyProps.assigned_user['username'])
+    ).toBeInTheDocument()
   })
 })

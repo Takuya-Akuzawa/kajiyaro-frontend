@@ -22,7 +22,10 @@ const server = setupServer(
             },
             description: 'mock api request data 1',
             estimated_time: 5,
-            create_user: 1,
+            create_user: {
+              id: 1,
+              username: 'Dummy User 1',
+            },
           },
           {
             id: 2,
@@ -33,7 +36,10 @@ const server = setupServer(
             },
             description: 'mock api request data 2',
             estimated_time: 10,
-            create_user: 1,
+            create_user: {
+              id: 1,
+              username: 'Dummy User 1',
+            },
           },
         ])
       )
@@ -64,7 +70,10 @@ describe(`Housework-page useSWR test`, () => {
       },
       description: 'mock api request data 3',
       estimated_time: 15,
-      create_user: 1,
+      create_user: {
+        id: 1,
+        username: 'Dummy User 1',
+      },
     },
     {
       id: 4,
@@ -75,7 +84,10 @@ describe(`Housework-page useSWR test`, () => {
       },
       description: 'mock api request data 4',
       estimated_time: 40,
-      create_user: 1,
+      create_user: {
+        id: 1,
+        username: 'Dummy User 1',
+      },
     },
   ]
   it('Should render CSF data after pre-rendered data', async () => {

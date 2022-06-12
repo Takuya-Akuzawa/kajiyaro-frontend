@@ -18,7 +18,10 @@ const StateContextProvider: React.FC = ({ children }) => {
     },
     description: '',
     estimated_time: 0,
-    create_user: 1,
+    create_user: {
+      id: 1,
+      username: 'Dummy User 1',
+    },
   })
 
   return (

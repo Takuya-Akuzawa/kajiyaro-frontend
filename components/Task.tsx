@@ -17,7 +17,7 @@ const Task: React.FC<TASK> = ({
         </span>
       </div>
       <div className="py-1 text-sm text-gray-700 text-center">
-        担当 <span className="text-lg">{assigned_user}</span>
+        担当 <span className="text-lg">{assigned_user['username']}</span>
       </div>
       <div className="py-1 text-sm text-gray-700 text-center">
         対応予定 <span className="text-lg">{scheduled_date}</span>

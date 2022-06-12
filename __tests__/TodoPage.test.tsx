@@ -25,7 +25,10 @@ const handlers = [
               category: '衣',
             },
             status: '未着手',
-            assigned_user: 'Dummy User 1',
+            assigned_user: {
+              id: 1,
+              username: 'Dummy User 1',
+            },
             scheduled_date: '2022/04/26',
             result_date: '2022/04/27',
             result_time: 30,
@@ -38,7 +41,10 @@ const handlers = [
               category: '食',
             },
             status: '完了',
-            assigned_user: 'Dummy User 2',
+            assigned_user: {
+              id: 2,
+              username: 'Dummy User 2',
+            },
             scheduled_date: '2022/06/08',
             result_date: '2022/06/08',
             result_time: 60,

@@ -46,7 +46,7 @@ const HouseworkForm: React.FC<ContextHousework> = ({
           category: selectedHousework.category['id'],
           description: selectedHousework.description,
           estimated_time: selectedHousework.estimated_time,
-          create_user: selectedHousework.create_user,
+          create_user: selectedHousework.create_user['id'],
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const HouseworkForm: React.FC<ContextHousework> = ({
           category: selectedHousework.category['id'],
           description: selectedHousework.description,
           estimated_time: selectedHousework.estimated_time,
-          create_user: selectedHousework.create_user,
+          create_user: selectedHousework.create_user['id'],
         }),
         headers: {
           'Content-Type': 'application/json',
