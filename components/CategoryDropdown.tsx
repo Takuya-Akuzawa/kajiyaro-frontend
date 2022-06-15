@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
+import { CATEGORY } from '../types/Types'
 import { StateContext } from '../context/StateContext'
 import { getAllCategoryData } from '../lib/category'
 
 const CategoryDropdown: React.FC = () => {
   const { selectedHousework, setSelectedHousework } = useContext(StateContext)
-  const [categoryList, setCategoryList] = useState([])
+  const [categoryList, setCategoryList] = useState<CATEGORY[]>([])
 
   useEffect(() => {
     getAllCategoryData()
@@ -12,6 +13,7 @@ const CategoryDropdown: React.FC = () => {
       .catch((error) => console.error(error))
   }, [])
 
+  // categoryListから引数のｉｄに一致するcategoryデータを検索し該当データを返す
   const findCategory = (id: string) => {
     return categoryList.find((category) => category.id.toString() === id)
   }
