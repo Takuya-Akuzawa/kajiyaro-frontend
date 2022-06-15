@@ -5,6 +5,7 @@ import { HOUSEWORK } from '../types/Types'
 import { KeyedMutator } from 'swr'
 import fetch from 'node-fetch'
 import Cookie from 'universal-cookie'
+import CategoryDropdown from './CategoryDropdown'
 
 const cookie = new Cookie()
 
@@ -108,6 +109,8 @@ const HouseworkForm: React.FC<ContextHousework> = ({
         <div className="px-6 py-4 mb-3 w-16 text-lg border rounded-md border-indigo-500 bg-purple-50">
           {selectedHousework.category['category_name']}
         </div>
+
+        <CategoryDropdown />
 
         <label htmlFor="housework_name">housework</label>
         <input
