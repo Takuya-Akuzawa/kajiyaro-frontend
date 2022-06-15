@@ -106,10 +106,6 @@ const HouseworkForm: React.FC<ContextHousework> = ({
           selectedHousework.id !== 0 ? updateHousework : createHousework
         }
       >
-        <div className="px-6 py-4 mb-3 w-16 text-lg border rounded-md border-indigo-500 bg-purple-50">
-          {selectedHousework.category['category_name']}
-        </div>
-
         <CategoryDropdown />
 
         <label htmlFor="housework_name">housework</label>
