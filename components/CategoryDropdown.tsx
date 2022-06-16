@@ -8,9 +8,13 @@ const CategoryDropdown: React.FC = () => {
   const [categoryList, setCategoryList] = useState<CATEGORY[]>([])
 
   useEffect(() => {
+    // let abortCtrl = new AbortController()
     getAllCategoryData()
       .then((res) => setCategoryList(res))
       .catch((error) => console.error(error))
+    // return () => {
+    //   abortCtrl.abort()
+    // }
   }, [])
 
   // categoryListから引数のｉｄに一致するcategoryデータを検索し該当データを返す
