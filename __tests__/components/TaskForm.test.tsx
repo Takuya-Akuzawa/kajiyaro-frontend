@@ -1,0 +1,118 @@
+import { render, screen, cleanup } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import userEvent from '@testing-library/user-event'
+import { TASK } from '../../types/Types'
+import { initTestHelpers } from 'next-page-tester'
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
+
+initTestHelpers()
+
+const handlers = [
+  rest.post(
+    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/tasks/`,
+    (req, res, ctx) => {
+      return res(ctx.status(200))
+    }
+  ),
+]
+
+const server = setupServer(...handlers)
+
+beforeAll(() => {
+  server.listen()
+})
+afterEach(() => {
+  server.resetHandlers()
+  cleanup()
+  document.cookie =
+    'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+})
+afterAll(() => {
+  server.close()
+})
+
+describe('Task登録フォームのコンポーネント単体テスト', () => {
+  const inputTask = {
+    task_name: '洗濯',
+    category: {
+      id: 1,
+      category_name: '衣',
+    },
+    status: '未着手',
+    assigned_user: {
+      id: 2,
+      username: 'Takuya',
+    },
+    scheduled_date: '2022-06-12',
+    result_date: null,
+    result_time: null,
+  }
+
+  it('フォーム入力欄にTask内容を入力して、登録ボタン実行が成功する事', async () => {
+    document.cookie = 'access_token=123xyz'
+    render(<TaskForm />)
+
+    // フォーム入力前は登録Buttonが非活性になっている事
+    const createButton = screen.getByText('登録')
+    expect(createButton).toBeDisabled()
+
+    // 各入力フォームに入力できる事
+    expect(
+      userEvent.type(
+        screen.getByPlaceholderText('タスク名'),
+        inputTask.task_name
+      )
+    ).toBe(inputTask.task_name)
+    userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
+    userEvent.type(screen.getByPlaceholderText('ステータス'), inputTask.status)
+    userEvent.type(
+      screen.getByPlaceholderText('担当者'),
+      inputTask.assigned_user['id'].toString()
+    )
+    userEvent.type(
+      screen.getByPlaceholderText('対応予定日'),
+      inputTask.scheduled_date
+    )
+
+    // 正しいInputデータ入力後、登録buttonが活性化されクリックすると登録が完了した旨メッセージが表示される事
+    expect(createButton).toBeEnabled()
+    userEvent.click(createButton)
+    expect(
+      await screen.findByText('新規タスクを登録しました')
+    ).toBeInTheDocument()
+  })
+
+  it('フォーム入力・登録ボタン実行後、登録処理に失敗した場合その旨メッセージが表示される事', async () => {
+    document.cookie = 'access_token=123xyz'
+    server.use(
+      rest.post(
+        `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/tasks/`,
+        (req, res, ctx) => {
+          return res(ctx.status(400))
+        }
+      )
+    )
+
+    render(<TaskForm />)
+
+    userEvent.type(screen.getByPlaceholderText('タスク名'), inputTask.task_name)
+    userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
+    userEvent.type(screen.getByPlaceholderText('ステータス'), inputTask.status)
+    userEvent.type(
+      screen.getByPlaceholderText('担当者'),
+      inputTask.assigned_user['id'].toString()
+    )
+    userEvent.type(
+      screen.getByPlaceholderText('対応予定日'),
+      inputTask.scheduled_date
+    )
+    // 登録Buttonクリック後、登録失敗した場合その旨メッセージが表示される事
+    const createButton = screen.getByText('登録')
+    expect(createButton).toBeEnabled()
+    userEvent.click(createButton)
+    expect(
+      await screen.findByText('タスクの登録に失敗しました')
+    ).toBeInTheDocument()
+  })
+})
