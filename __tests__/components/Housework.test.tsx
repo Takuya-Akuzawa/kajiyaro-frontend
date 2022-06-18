@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import Housework from '../components/Housework'
-import { HOUSEWORK } from '../types/Types'
+import Housework from '../../components/Housework'
+import { HOUSEWORK } from '../../types/Types'
 
 describe('Housework component with given props', () => {
   let dummyProps: HOUSEWORK
