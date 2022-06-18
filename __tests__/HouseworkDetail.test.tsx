@@ -165,7 +165,8 @@ describe(`housework/[id].js test`, () => {
     })
     render(page)
     expect(await screen.findByText('Housework Detail')).toBeInTheDocument()
-    // expect(screen.getByText('衣')).toBeInTheDocument()
+    await screen.findByText('衣')
+    expect(screen.getByRole('option', { name: '衣' })).toBeInTheDocument()
     expect(screen.getByDisplayValue('dummy data 1')).toBeInTheDocument()
     expect(
       screen.getByDisplayValue('mock api request data 1')
@@ -178,7 +179,8 @@ describe(`housework/[id].js test`, () => {
     })
     render(page)
     expect(await screen.findByText('Housework Detail')).toBeInTheDocument()
-    // expect(screen.getByText('食')).toBeInTheDocument()
+    await screen.findByText('食')
+    expect(screen.getByRole('option', { name: '食' })).toBeInTheDocument()
     expect(screen.getByDisplayValue('dummy data 2')).toBeInTheDocument()
     expect(
       screen.getByDisplayValue('mock api request data 2')
