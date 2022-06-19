@@ -44,7 +44,7 @@ describe('Categoryドロップダウンコンポーネントの単体テスト',
   it('APIから取得したCategoryデータリストをもとに、プルダウンがレンダリングされる事', async () => {
     render(
       <SWRConfig value={{ dedupingInterval: 0 }}>
-        <CategoryDropdown />
+        <CategoryDropdown context={'housework'} />
       </SWRConfig>,
       { wrapper: StateContextProvider }
     )
