@@ -39,7 +39,7 @@ const TaskForm: React.FC = () => {
           },
         }
       )
-      if (res.status === 200) {
+      if (res.status === 201) {
         setMessage('新規タスクを登録しました')
       }
     } catch (error) {

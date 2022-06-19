@@ -2,17 +2,14 @@ import Layout from '../components/Layout'
 import LinkToHousework from '../components/LinkToHousework'
 import HouseworkForm from '../components/HouseworkForm'
 import StateContextProvider from '../context/StateContext'
-import { GetStaticProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Cookie from 'universal-cookie'
-import { CATEGORY } from '../types/Types'
-import CategoryDropdown from '../components/CategoryDropdown'
 
 const cookie = new Cookie()
 
 const CreateHousework: NextPage = () => {
-  const router = useRouter()
   const [hasToken, setHasToken] = useState(false)
 
   useEffect(() => {
