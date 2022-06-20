@@ -5,8 +5,8 @@ import { initTestHelpers } from 'next-page-tester'
 import { SWRConfig } from 'swr'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { TASK } from '../types/Types'
-import TodoList from '../pages/todo-page'
+import { TASK } from '../../types/Types'
+import TodoList from '../../pages/todo-page'
 
 initTestHelpers()
 

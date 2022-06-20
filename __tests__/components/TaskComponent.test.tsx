@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import Task from '../components/Task'
-import { TASK } from '../types/Types'
+import Task from '../../components/Task'
+import { TASK } from '../../types/Types'
 
 describe('Task component with given prop', () => {
   let dummyProps: TASK

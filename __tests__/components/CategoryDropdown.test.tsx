@@ -3,9 +3,9 @@ import { render, screen, cleanup } from '@testing-library/react'
 import { initTestHelpers } from 'next-page-tester'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import CategoryDropdown from '../components/CategoryDropdown'
+import CategoryDropdown from '../../components/CategoryDropdown'
 import userEvent from '@testing-library/user-event'
-import StateContextProvider from '../context/StateContext'
+import StateContextProvider from '../../context/StateContext'
 import { SWRConfig } from 'swr'
 
 initTestHelpers()
@@ -44,7 +44,7 @@ describe('Categoryドロップダウンコンポーネントの単体テスト',
   it('APIから取得したCategoryデータリストをもとに、プルダウンがレンダリングされる事', async () => {
     render(
       <SWRConfig value={{ dedupingInterval: 0 }}>
-        <CategoryDropdown />
+        <CategoryDropdown context={'housework'} />
       </SWRConfig>,
       { wrapper: StateContextProvider }
     )

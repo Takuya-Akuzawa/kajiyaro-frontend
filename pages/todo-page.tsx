@@ -8,6 +8,7 @@ import Layout from '../components/Layout'
 import Task from '../components/Task'
 import { getAllTaskData } from '../lib/tasks'
 import axios from 'axios'
+import Link from 'next/link'
 
 const cookie = new Cookie()
 
@@ -47,6 +48,9 @@ const TodoList: NextPage<STATICPROPS> = ({ staticTasks }) => {
           {tasks && tasks.map((task) => <Task key={task.id} {...task} />)}
         </ul>
       </section>
+      <Link href="/create-task-page">
+        <a>新規Task登録</a>
+      </Link>
     </Layout>
   )
 }

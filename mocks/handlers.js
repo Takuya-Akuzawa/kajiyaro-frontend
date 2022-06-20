@@ -40,5 +40,18 @@ export const handlers = [
           },
         ])
       )
-    })
+    }),
+  rest.get(
+    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/list-category/`,
+    (req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json([
+          { id: 1, category_name: '衣' },
+          { id: 2, category_name: '食' },
+          { id: 3, category_name: '住' },
+        ])
+      )
+    }
+  ),
 ]

@@ -3,8 +3,8 @@ import { render, screen, cleanup } from '@testing-library/react'
 import { SWRConfig } from 'swr'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { HOUSEWORK } from '../types/Types'
-import HouseworkList from '../pages/housework-page'
+import { HOUSEWORK } from '../../types/Types'
+import HouseworkList from '../../pages/housework-page'
 
 const server = setupServer(
   rest.get(
