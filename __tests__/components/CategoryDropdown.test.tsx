@@ -6,6 +6,7 @@ import { setupServer } from 'msw/node'
 import CategoryDropdown from '../../components/CategoryDropdown'
 import userEvent from '@testing-library/user-event'
 import StateContextProvider from '../../context/StateContext'
+import TaskContextProvider from '../../context/TaskContext'
 import { SWRConfig } from 'swr'
 
 initTestHelpers()
@@ -40,13 +41,29 @@ afterAll(() => {
   server.close()
 })
 
-describe('Categoryドロップダウンコンポーネントの単体テスト', () => {
+describe('Categoryドロップダウンコンポーネントの単体テスト(stateContext使用時)', () => {
   it('APIから取得したCategoryデータリストをもとに、プルダウンがレンダリングされる事', async () => {
     render(
       <SWRConfig value={{ dedupingInterval: 0 }}>
         <CategoryDropdown context={'housework'} />
       </SWRConfig>,
       { wrapper: StateContextProvider }
+    )
+    await screen.findByText('衣')
+    userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
+    expect(screen.getByRole('option', { name: '衣' })).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: '食' })).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: '住' })).toBeInTheDocument()
+  })
+})
+
+describe('Categoryドロップダウンコンポーネントの単体テスト(taskContext使用時)', () => {
+  it('APIから取得したCategoryデータリストをもとに、プルダウンがレンダリングされる事', async () => {
+    render(
+      <SWRConfig value={{ dedupingInterval: 0 }}>
+        <CategoryDropdown context={'task'} />
+      </SWRConfig>,
+      { wrapper: TaskContextProvider }
     )
     await screen.findByText('衣')
     userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
