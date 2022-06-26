@@ -107,7 +107,7 @@ const TaskForm: React.FC = () => {
                 !selectedTask.task_name ||
                 !selectedTask.status ||
                 !selectedTask.scheduled_date ||
-                !selectedTask.assigned_user['username']
+                selectedTask.assigned_user['id'] === 0
               }
               className="text-sm px-2 py-1 mt-2 disabled:opacity-40
               bg-blue-300 hover:bg-blue-400 rounded uppercase"

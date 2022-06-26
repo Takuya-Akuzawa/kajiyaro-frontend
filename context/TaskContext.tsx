@@ -19,11 +19,11 @@ export const TaskContextProvider: React.FC = ({ children }) => {
     status: '未着手',
     assigned_user: {
       id: 0,
-      username: undefined,
+      username: '未設定',
     },
-    scheduled_date: undefined,
-    result_date: undefined,
-    result_time: undefined,
+    scheduled_date: '',
+    result_date: '',
+    result_time: 0,
   })
   return (
     <TaskContext.Provider value={{ selectedTask, setSelectedTask }}>
