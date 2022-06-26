@@ -18,8 +18,8 @@ export const TaskContextProvider: React.FC = ({ children }) => {
     },
     status: '未着手',
     assigned_user: {
-      id: 2,
-      username: 'Takuya',
+      id: 0,
+      username: undefined,
     },
     scheduled_date: undefined,
     result_date: undefined,

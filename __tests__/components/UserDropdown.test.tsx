@@ -49,7 +49,7 @@ describe('Userドロップダウンコンポーネントの単体テスト(state
       { wrapper: StateContextProvider }
     )
 
-    await screen.findByText('--ユーザを選択してください--')
+    await screen.findByText('--担当者を選択してください--')
     userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
     expect(screen.getByRole('option', { name: 'Takuya' })).toBeInTheDocument()
     expect(screen.getByRole('option', { name: 'Narumi' })).toBeInTheDocument()
@@ -65,7 +65,7 @@ describe('Userドロップダウンコンポーネントの単体テスト(taskC
       { wrapper: TaskContextProvider }
     )
 
-    await screen.findByText('--ユーザを選択してください--')
+    await screen.findByText('--担当者を選択してください--')
     userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
     expect(screen.getByRole('option', { name: 'Takuya' })).toBeInTheDocument()
     expect(screen.getByRole('option', { name: 'Narumi' })).toBeInTheDocument()

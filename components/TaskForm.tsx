@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react'
 import { TaskContext } from '../context/TaskContext'
 import Cookie from 'universal-cookie'
 import CategoryDropdown from './CategoryDropdown'
+import UserDropdown from './UserDropdown'
 import axios from 'axios'
 
 const cookie = new Cookie()
@@ -53,7 +54,7 @@ const TaskForm: React.FC = () => {
         <CategoryDropdown context={'task'} />
 
         <input
-          className="block text-black w-full px-4 py-2 mb-3 
+          className="block text-black text-center w-full px-4 py-2 mb-3 
           border border-gray-300 rounded-md
           focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
           focus:outline-none focus:ring"
@@ -65,8 +66,11 @@ const TaskForm: React.FC = () => {
             setSelectedTask({ ...selectedTask, task_name: e.target.value })
           }
         />
+
+        <UserDropdown context={'task'} />
+
         <input
-          className="block text-black w-full px-4 py-2 mb-3 
+          className="block text-black text-center w-full px-4 py-2 mb-3 
                     border border-gray-300 rounded-md
                     focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
                     focus:outline-none focus:ring"
@@ -78,8 +82,9 @@ const TaskForm: React.FC = () => {
             setSelectedTask({ ...selectedTask, status: e.target.value })
           }
         />
+
         <input
-          className="block text-black w-full px-4 py-2 mb-3 
+          className="block text-black text-center w-full px-4 py-2 mb-3 
           border border-gray-300 rounded-md
           focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
           focus:outline-none focus:ring"
@@ -98,8 +103,13 @@ const TaskForm: React.FC = () => {
           {hasToken && (
             <button
               type="submit"
-              disabled={!selectedTask.task_name || !selectedTask.status}
-              className="text-sm px-2 py-1 mt-2
+              disabled={
+                !selectedTask.task_name ||
+                !selectedTask.status ||
+                !selectedTask.scheduled_date ||
+                !selectedTask.assigned_user['username']
+              }
+              className="text-sm px-2 py-1 mt-2 disabled:opacity-40
               bg-blue-300 hover:bg-blue-400 rounded uppercase"
             >
               {'登録'}
