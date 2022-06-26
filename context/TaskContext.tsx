@@ -31,3 +31,4 @@ export const TaskContextProvider: React.FC = ({ children }) => {
     </TaskContext.Provider>
   )
 }
+export default TaskContextProvider
