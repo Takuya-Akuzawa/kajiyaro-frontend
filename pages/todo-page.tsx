@@ -10,6 +10,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import Modal from '../components/Modal'
 import { TaskContextProvider } from '../context/TaskContext'
+import { spawn } from 'child_process'
 
 const cookie = new Cookie()
 
@@ -50,9 +51,16 @@ const TodoList: NextPage<STATICPROPS> = ({ staticTasks }) => {
             {tasks && tasks.map((task) => <Task key={task.id} task={task} />)}
           </ul>
         </section>
-        <Link href="/create-task-page">
-          <a>新規Task登録</a>
-        </Link>
+        <div className="mt-4">
+          {hasToken ? (
+            <Link href="/create-task-page">
+              <a className="mt-4">新規Task登録</a>
+            </Link>
+          ) : (
+            <span className="text-red-400">認証が必要です</span>
+          )}
+        </div>
+
         <Modal mutate={mutate} />
       </Layout>
     </TaskContextProvider>

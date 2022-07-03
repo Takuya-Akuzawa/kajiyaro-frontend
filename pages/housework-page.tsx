@@ -57,7 +57,7 @@ const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
           ))}
       </ul>
 
-      {hasToken && (
+      {hasToken ? (
         <Link href="/create-housework-page">
           <div className="flex cursor-pointer mt-3">
             {/* <<アイコン */}
@@ -78,6 +78,8 @@ const HouseworkList: NextPage<STATICPROPS> = ({ staticHouseworks }) => {
             <span>新規Housework</span>
           </div>
         </Link>
+      ) : (
+        <span className="text-red-400">認証が必要です</span>
       )}
     </Layout>
   )

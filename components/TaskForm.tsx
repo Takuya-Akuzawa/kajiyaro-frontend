@@ -116,57 +116,65 @@ const TaskForm: React.FC = () => {
           }
         />
 
-        <input
-          className="block text-black text-center w-full px-4 py-2 mb-3 
+        <label>
+          対応予定日
+          <input
+            className="block text-black text-center w-full px-4 py-2 mb-3 
           border border-gray-300 rounded-md
           focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
           focus:outline-none focus:ring"
-          type="date"
-          required
-          placeholder="対応予定日"
-          value={selectedTask.scheduled_date}
-          onChange={(e) =>
-            setSelectedTask({
-              ...selectedTask,
-              scheduled_date: e.target.value,
-            })
-          }
-        />
-        {/* 実績日 */}
-        <input
-          className="block text-black text-center w-full px-4 py-2 mb-3 
-          border border-gray-300 rounded-md
-          focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
-          focus:outline-none focus:ring"
-          type="date"
-          placeholder="実績日"
-          value={selectedTask.result_date}
-          onChange={(e) =>
-            setSelectedTask({
-              ...selectedTask,
-              result_date: e.target.value,
-            })
-          }
-        />
+            type="date"
+            required
+            placeholder="対応予定日"
+            value={selectedTask.scheduled_date}
+            onChange={(e) =>
+              setSelectedTask({
+                ...selectedTask,
+                scheduled_date: e.target.value,
+              })
+            }
+          />
+        </label>
 
-        {/* 実績時間 */}
-        <input
-          className="block text-black text-center w-full px-4 py-2 mb-3 
+        <label>
+          実績日
+          <input
+            className="block text-black text-center w-full px-4 py-2 mb-3 
           border border-gray-300 rounded-md
           focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
           focus:outline-none focus:ring"
-          type="number"
-          placeholder="実績時間"
-          value={selectedTask.result_time}
-          onChange={(e) =>
-            setSelectedTask({
-              ...selectedTask,
-              result_time: Number(e.target.value),
-            })
-          }
-        />
+            type="date"
+            placeholder="実績日"
+            value={selectedTask.result_date}
+            onChange={(e) =>
+              setSelectedTask({
+                ...selectedTask,
+                result_date: e.target.value,
+              })
+            }
+          />
+        </label>
 
-        <div className="flex justify-center">
+        <label>
+          実績時間
+          <input
+            className="block text-black text-center w-full px-4 py-2 mb-3 
+          border border-gray-300 rounded-md
+          focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
+          focus:outline-none focus:ring"
+            type="number"
+            placeholder="実績時間"
+            value={selectedTask.result_time}
+            onChange={(e) =>
+              setSelectedTask({
+                ...selectedTask,
+                result_time: Number(e.target.value),
+              })
+            }
+          />
+        </label>
+
+        <div className="flex justify-end border-t border-solid border-slate-200 pt-2 pr-2">
           {hasToken && (
             <button
               type="submit"

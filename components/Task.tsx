@@ -11,14 +11,14 @@ const Task: React.FC<PROPS> = ({ task }) => {
   return (
     <div
       className="shadow-md w-4/5 items-center m-auto
-                  mb-3 cursor-pointer border rounded-md border-slate-300"
+                  mb-3 cursor-pointer border rounded-md border-orange-200"
       onClick={() => {
         setSelectedTask(task)
         setShowModal(true)
       }}
     >
-      <div className="py-2 text-center text-gray-700">
-        <span className="text-xl font-semibold border-b border-gray-500">
+      <div className="py-2 text-center text-gray-700 bg-orange-100">
+        <span className="text-2xl font-semibold border-b border-orange-300">
           {task.task_name}
         </span>
       </div>
