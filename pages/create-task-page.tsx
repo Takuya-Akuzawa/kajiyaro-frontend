@@ -27,7 +27,7 @@ const CreateTask: NextPage = () => {
           <TaskForm />
         </section>
         <Link href="/todo-page">
-          <a>ToDoページへ戻る</a>
+          <a className="mt-4">ToDoページへ戻る</a>
         </Link>
       </Layout>
     </TaskContextProvider>
