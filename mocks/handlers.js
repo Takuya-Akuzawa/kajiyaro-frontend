@@ -15,11 +15,11 @@ export const handlers = [
             },
             status: '未着手',
             assigned_user: {
-              'id': 1,
+              'id': 3,
               'username': 'Narumi'
             },
-            scheduled_date: '2022/06/10',
-            result_date: '2022/06/10',
+            scheduled_date: '2022-06-10',
+            result_date: '2022-06-11',
             result_time: 30,
           },
           {
@@ -31,11 +31,11 @@ export const handlers = [
             },
             status: '完了',
             assigned_user: {
-              'id': 1,
+              'id': 2,
               'username': 'Takuya'
             },
-            scheduled_date: '2022/06/08',
-            result_date: '2022/06/08',
+            scheduled_date: '2022-06-08',
+            result_date: '2022-06-09',
             result_time: 60,
           },
         ])

@@ -1,4 +1,4 @@
-import { render, screen, cleanup } from '@testing-library/react'
+import { render, screen, cleanup, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from '@testing-library/user-event'
 import { initTestHelpers } from 'next-page-tester'
@@ -15,6 +15,12 @@ const handlers = [
     `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/tasks/`,
     (req, res, ctx) => {
       return res(ctx.status(201))
+    }
+  ),
+  rest.put(
+    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/tasks/:id`,
+    (req, res, ctx) => {
+      return res(ctx.status(200))
     }
   ),
   rest.get(
@@ -60,8 +66,24 @@ describe('Task登録フォームのコンポーネント単体テスト', () => 
       username: 'Takuya',
     },
     scheduled_date: '2022-06-12',
-    result_date: undefined,
-    result_time: undefined,
+    result_date: '',
+    result_time: 0,
+  }
+  const updateTask = {
+    id: 1,
+    task_name: 'お風呂掃除',
+    category: {
+      id: 3,
+      category_name: '住',
+    },
+    status: '完了',
+    assigned_user: {
+      id: 3,
+      username: 'Narumi',
+    },
+    scheduled_date: '2022-06-12',
+    result_date: '2022-06-12',
+    result_time: 10,
   }
 
   it('フォーム入力欄にTask内容を入力して、登録ボタン実行が成功する事', async () => {
@@ -83,16 +105,20 @@ describe('Task登録フォームのコンポーネント単体テスト', () => 
 
     // Categoryドロップダウンのfetchができるまで待つ
     await screen.findByText('衣')
-    userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
+    userEvent.selectOptions(screen.getByDisplayValue('衣'), ['1'])
+
+    userEvent.clear(screen.getByPlaceholderText('ステータス'))
     userEvent.type(screen.getByPlaceholderText('ステータス'), inputTask.status)
-    // userEvent.type(
-    //   screen.getByPlaceholderText('担当者'),
-    //   inputTask.assigned_user['id'].toString()
-    // )
-    // userEvent.type(
-    //   screen.getByPlaceholderText('対応予定日'),
-    //   inputTask.scheduled_date
-    // )
+
+    await screen.findByText(/担当者/)
+    userEvent.selectOptions(
+      screen.getByDisplayValue(/担当者/),
+      inputTask.assigned_user['id'].toString()
+    )
+
+    fireEvent.change(screen.getByPlaceholderText('対応予定日'), {
+      target: { value: inputTask.scheduled_date },
+    })
 
     // 正しいInputデータ入力後、登録buttonが活性化されクリックすると登録が完了した旨メッセージが表示される事
     expect(createButton).toBeEnabled()
@@ -115,20 +141,26 @@ describe('Task登録フォームのコンポーネント単体テスト', () => 
 
     render(<TaskForm />, { wrapper: TaskContextProvider })
 
+    // 各入力フォームに入力できる事
     userEvent.type(screen.getByPlaceholderText('タスク名'), inputTask.task_name)
+    expect(screen.getByDisplayValue(inputTask.task_name)).toBeInTheDocument()
 
+    // Categoryドロップダウンのfetchができるまで待つ
     await screen.findByText('衣')
-    userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
+    userEvent.selectOptions(screen.getByDisplayValue('衣'), ['1'])
 
+    userEvent.clear(screen.getByPlaceholderText('ステータス'))
     userEvent.type(screen.getByPlaceholderText('ステータス'), inputTask.status)
-    // userEvent.type(
-    //   screen.getByPlaceholderText('担当者'),
-    //   inputTask.assigned_user['id'].toString()
-    // )
-    // userEvent.type(
-    //   screen.getByPlaceholderText('対応予定日'),
-    //   inputTask.scheduled_date
-    // )
+
+    await screen.findByText(/担当者/)
+    userEvent.selectOptions(
+      screen.getByDisplayValue(/担当者/),
+      inputTask.assigned_user['id'].toString()
+    )
+
+    fireEvent.change(screen.getByPlaceholderText('対応予定日'), {
+      target: { value: inputTask.scheduled_date },
+    })
 
     // 登録Buttonクリック後、登録失敗した場合その旨メッセージが表示される事
     const createButton = screen.getByText('登録')

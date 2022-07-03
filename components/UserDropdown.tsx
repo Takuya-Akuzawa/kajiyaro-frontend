@@ -30,7 +30,7 @@ const UserDropdown: React.FC<props> = ({ context }) => {
     return (
       <div>
         <select
-          className="bg-transparent"
+          required
           value={selectedHousework.create_user['id']}
           onChange={(e) =>
             setSelectedHousework({
@@ -39,7 +39,10 @@ const UserDropdown: React.FC<props> = ({ context }) => {
             })
           }
         >
-          <option value="">--ユーザを選択してください--</option>
+          <option value="0" disabled>
+            --担当者を選択してください--
+          </option>
+
           {data.map((user) => (
             <option key={user.id} value={user.id}>
               {user.username}
@@ -52,7 +55,11 @@ const UserDropdown: React.FC<props> = ({ context }) => {
     return (
       <div>
         <select
-          className="bg-transparent"
+          className="block text-black text-center w-full px-4 py-2 mb-3
+                     border border-gray-300 rounded-md
+                    focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40
+                    focus:outline-none focus:ring"
+          required
           value={selectedTask.assigned_user['id']}
           onChange={(e) =>
             setSelectedTask({
@@ -61,7 +68,9 @@ const UserDropdown: React.FC<props> = ({ context }) => {
             })
           }
         >
-          <option value="">--ユーザを選択してください--</option>
+          <option value="0" disabled>
+            --担当者を選択してください--
+          </option>
 
           {data.map((user) => (
             <option key={user.id} value={user.id}>

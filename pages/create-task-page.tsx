@@ -23,7 +23,9 @@ const CreateTask: NextPage = () => {
         <h2 className="my-3 text-center text-xl font-semibold">
           Register Task
         </h2>
-        <TaskForm />
+        <section className="p-6 w-4/5 max-w-4xl bg-white rounded-md shadow-md">
+          <TaskForm />
+        </section>
         <Link href="/todo-page">
           <a>ToDoページへ戻る</a>
         </Link>

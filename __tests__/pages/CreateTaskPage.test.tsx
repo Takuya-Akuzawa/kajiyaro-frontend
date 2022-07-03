@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom/extend-expect'
-import { render, screen, cleanup } from '@testing-library/react'
+import { render, screen, cleanup, fireEvent } from '@testing-library/react'
 import { getPage } from 'next-page-tester'
 import { initTestHelpers } from 'next-page-tester'
 import { rest } from 'msw'
@@ -70,22 +70,24 @@ describe('create-task-page.tsxのページテスト', () => {
     // 各入力フォームに入力できる事
     userEvent.type(screen.getByPlaceholderText('タスク名'), inputTask.task_name)
     expect(screen.getByDisplayValue(inputTask.task_name)).toBeInTheDocument()
-    // ).toBe(inputTask.task_name)
 
     // Categoryドロップダウンのfetchができるまで待つ
     await screen.findByText('衣')
-    userEvent.selectOptions(screen.getByRole('combobox'), ['1'])
+    userEvent.selectOptions(screen.getByDisplayValue('衣'), ['1'])
 
-    // userEvent.type(screen.getByPlaceholderText('ステータス'), inputTask.status)
+    userEvent.clear(screen.getByPlaceholderText('ステータス'))
+    userEvent.type(screen.getByPlaceholderText('ステータス'), inputTask.status)
     expect(screen.getByDisplayValue(inputTask.status)).toBeInTheDocument()
-    // userEvent.type(
-    //   screen.getByPlaceholderText('担当者'),
-    //   inputTask.assigned_user['id'].toString()
-    // )
-    // userEvent.type(
-    //   screen.getByPlaceholderText('対応予定日'),
-    //   inputTask.scheduled_date
-    // )
+
+    await screen.findByText(/担当者/)
+    userEvent.selectOptions(
+      screen.getByDisplayValue(/担当者/),
+      inputTask.assigned_user['id'].toString()
+    )
+
+    fireEvent.change(screen.getByPlaceholderText('対応予定日'), {
+      target: { value: inputTask.scheduled_date },
+    })
 
     // 正しいInputデータ入力後、登録buttonが活性化されクリックすると登録が完了した旨メッセージが表示される事
     const createButton = screen.getByText('登録')

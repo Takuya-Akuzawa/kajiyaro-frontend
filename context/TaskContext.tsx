@@ -5,6 +5,8 @@ export const TaskContext = createContext(
   {} as {
     selectedTask: TASK
     setSelectedTask: React.Dispatch<React.SetStateAction<TASK>>
+    showModal: Boolean
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>
   }
 )
 
@@ -18,15 +20,19 @@ export const TaskContextProvider: React.FC = ({ children }) => {
     },
     status: '未着手',
     assigned_user: {
-      id: 2,
-      username: 'Takuya',
+      id: 0,
+      username: '未設定',
     },
-    scheduled_date: undefined,
+    scheduled_date: '',
     result_date: undefined,
-    result_time: undefined,
+    result_time: 0,
   })
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <TaskContext.Provider value={{ selectedTask, setSelectedTask }}>
+    <TaskContext.Provider
+      value={{ selectedTask, setSelectedTask, showModal, setShowModal }}
+    >
       {children}
     </TaskContext.Provider>
   )

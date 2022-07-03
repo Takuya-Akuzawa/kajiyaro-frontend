@@ -25,7 +25,7 @@ describe('Task component with given prop', () => {
   })
 
   it('Should render correctly with given props value', () => {
-    render(<Task {...dummyProps} />)
+    render(<Task task={dummyProps} />)
     expect(screen.getByText(dummyProps.task_name)).toBeInTheDocument()
     expect(screen.getByText(dummyProps.scheduled_date)).toBeInTheDocument()
     expect(
