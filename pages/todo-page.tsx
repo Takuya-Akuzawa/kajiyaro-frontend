@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-// import { useRouter } from 'next/router'
+import { useState, useEffect, useContext } from 'react'
 import useSWR from 'swr'
 import { NextPage, GetStaticProps } from 'next'
 import Cookie from 'universal-cookie'
@@ -9,6 +8,8 @@ import Task from '../components/Task'
 import { getAllTaskData } from '../lib/tasks'
 import axios from 'axios'
 import Link from 'next/link'
+import Modal from '../components/Modal'
+import { TaskContextProvider } from '../context/TaskContext'
 
 const cookie = new Cookie()
 
@@ -29,7 +30,7 @@ const TodoList: NextPage<STATICPROPS> = ({ staticTasks }) => {
 
   const { data: tasks, mutate } = useSWR('taskFetch', axiosFetcher, {
     fallbackData: staticTasks,
-    // revalidateOnMount: true,
+    revalidateOnMount: true,
   })
 
   useEffect(() => {
@@ -41,17 +42,20 @@ const TodoList: NextPage<STATICPROPS> = ({ staticTasks }) => {
     }
   }, [])
   return (
-    <Layout title="ToDo">
-      <div className="text-2xl font-bold text-slate-700 my-6">ToDo Page</div>
-      <section className="p-6 w-4/5 max-w-4xl bg-white rounded-md shadow-md">
-        <ul>
-          {tasks && tasks.map((task) => <Task key={task.id} {...task} />)}
-        </ul>
-      </section>
-      <Link href="/create-task-page">
-        <a>新規Task登録</a>
-      </Link>
-    </Layout>
+    <TaskContextProvider>
+      <Layout title="ToDo">
+        <div className="text-2xl font-bold text-slate-700 my-6">ToDo Page</div>
+        <section className="p-6 w-4/5 max-w-4xl bg-white rounded-md shadow-md">
+          <ul>
+            {tasks && tasks.map((task) => <Task key={task.id} task={task} />)}
+          </ul>
+        </section>
+        <Link href="/create-task-page">
+          <a>新規Task登録</a>
+        </Link>
+        <Modal mutate={mutate} />
+      </Layout>
+    </TaskContextProvider>
   )
 }
 export default TodoList
